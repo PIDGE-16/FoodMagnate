@@ -276,7 +276,7 @@ class Simulation:
     self._Companies = []
     self._FuelCostPerUnit = 0.0098
     self._BaseCostforDelivery = 100
-    self.DayNumber=0
+    self.DayNumber=1
     Choice = input("Enter L for a large settlement, anything else for a normal size settlement: ")
     if Choice == "L":
       ExtraX = int(input("Enter additional amount to add to X size of settlement: "))
