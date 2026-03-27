@@ -6,6 +6,14 @@
 import math
 import random
 
+def getnumber(prompt="Enter a number"):
+    while True:
+        user_input = input(prompt)
+        if user_input.isdigit():
+            return int(user_input)
+        else:
+            print("invalid input")
+
 class Household:
   _NextID = 1
 
@@ -234,7 +242,7 @@ class Company:
     return CloseCompany
       
   def ExpandOutlet(self, ID):
-    Change = int(input("Enter amount you would like to expand the capacity by: "))
+    Change = getnumber("Enter amount you would like to expand the capacity by: ")
     Result = self._Outlets[ID].AlterCapacity(Change)
     if Result == Change:
       print("Capacity adjusted.")
@@ -278,9 +286,9 @@ class Simulation:
     self._BaseCostforDelivery = 100
     Choice = input("Enter L for a large settlement, anything else for a normal size settlement: ")
     if Choice == "L":
-      ExtraX = int(input("Enter additional amount to add to X size of settlement: "))
-      ExtraY = int(input("Enter additional amount to add to Y size of settlement: "))
-      ExtraHouseholds = int(input("Enter additional number of households to add to settlement: "))
+      ExtraX = getnumber("Enter additional amount to add to X size of settlement: ")
+      ExtraY = getnumber("Enter additional amount to add to Y size of settlement: ")
+      ExtraHouseholds = getnumber("Enter additional number of households to add to settlement: ")
       self._SimulationSettlement = LargeSettlement(ExtraX, ExtraY, ExtraHouseholds)
     else:
       self._SimulationSettlement = Settlement()            
@@ -303,7 +311,7 @@ class Simulation:
       self._Companies[2].OpenOutlet(820, 370)
       self._Companies[2].OpenOutlet(800, 600)
     else:
-      self._NoOfCompanies = int(input("Enter number of companies that exist at start of simulation: "))
+      self._NoOfCompanies = getnumber("Enter number of companies that exist at start of simulation: ")
       for Count in range (1, self._NoOfCompanies + 1):
         self.AddCompany()
             
@@ -423,10 +431,10 @@ class Simulation:
         
   def AddCompany(self):
     CompanyName = input("Enter a name for the company: ")
-    Balance = int(input("Enter the starting balance for the company: "))
+    Balance = getnumber("Enter the starting balance for the company: ")
     TypeOfCompany = ""
     while not(TypeOfCompany == "1" or TypeOfCompany == "2" or TypeOfCompany == "3"):
-      TypeOfCompany = input("Enter 1 for a fast food company, 2 for a family company or 3 for a named chef company: ")
+      TypeOfCompany = getnumber("Enter 1 for a fast food company, 2 for a family company or 3 for a named chef company: ")
     if TypeOfCompany == "1":
       TypeOfCompany = "fast food"
     elif TypeOfCompany == "2":
@@ -451,10 +459,10 @@ class Simulation:
     print("1. Open new outlet")
     print("2. Close outlet")
     print("3. Expand outlet")
-    Choice = input("\nEnter your choice: ")
+    Choice = getnumber("\nEnter your choice: ")
     print()
     if Choice == "2" or Choice == "3":
-      OutletIndex = int(input("Enter ID of outlet: "))
+      OutletIndex = getnumber("Enter ID of outlet: "))
       if OutletIndex > 0 and OutletIndex <= self._Companies[Index].GetNumberOfOutlets():
         if Choice == "2":
           CloseCompany = self._Companies[Index].CloseOutlet(OutletIndex - 1)
@@ -466,8 +474,8 @@ class Simulation:
       else:
           print("Invalid outlet ID.")
     elif Choice == "1":
-      X = int(input("Enter X coordinate for new outlet: "))
-      Y = int(input("Enter Y coordinate for new outlet: "))
+      X = getnumber("Enter X coordinate for new outlet: ")
+      Y = getnumber("Enter Y coordinate for new outlet: ")
       if X >= 0 and X < self._SimulationSettlement.GetXSize() and Y >= 0 and Y < self._SimulationSettlement.GetYSize():
         self._Companies[Index].OpenOutlet(X, Y)
       else:
